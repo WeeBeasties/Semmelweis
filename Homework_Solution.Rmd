@@ -1,0 +1,54 @@
+---
+title: "Semmelweis Assignment"
+author: ""
+date: ""
+output:
+  pdf_document: 
+    latex_engine: xelatex 
+  html_document:
+    df_print: paged
+---
+
+## Desired analysis
+The Semmelweis datasets provided are raw data. To better compare the two hospitals, you should consider transforming the data to get either normalized death rates 
+$$ rate = \frac{deaths}{births} $$ 
+or percent of births where the mother died.  
+$$ percent = \frac{deaths}{births} \times 100\% $$   
+Plotting these versus time with line graphs should illustrate an easily recognizable pattern as is shown below. It would also be helpful to indicate when the Pathological Anatomy course and handwashing practices were begun to facilitate your interpretation.
+
+```{r data, echo=FALSE, message=FALSE}
+# Load in the tidyverse tools
+library(tidyverse)
+
+# Read in the provided data files
+vienna <- read_csv("data/vienna_yearly.csv")
+dublin <- read_csv("data/dublin_yearly.csv")
+
+# Add variables for the hospital name and the percent deaths per live birth
+vienna$Hospital <- "Vienna"
+vienna$Rate <- vienna$Deaths/vienna$Births*100
+dublin$Hospital <- "Dublin"
+dublin$Rate <- dublin$Deaths/dublin$Births*100
+
+# Join the data sets into one long data table for plotting
+plotData <- rbind(vienna,dublin)
+```
+
+
+```{r plot, echo=FALSE, fig.height=4.3, fig.width=7, fig.align='center'}
+ggplot(plotData, aes(x=Year, y=Rate, colour=Hospital)) +
+	scale_x_continuous(breaks = seq(1780, 1850, by = 10)) +
+	scale_y_continuous(breaks = seq(0, 20, by = 2)) +
+	geom_line(size=1.5) +
+	labs(x="Date", y="Percent Maternal Deaths per Live Birth") +
+	theme_classic() +
+	scale_color_manual(values=c("dodgerblue", "firebrick")) +
+	geom_vline(xintercept = 1823, linetype = "dotted") +
+	annotate("text", x = 1821.5, y = 11, angle = 90, label = "Pathological Anatomy course started") +
+	geom_vline(xintercept = 1847, linetype = "dotted") +
+	annotate("text", x = 1848.2, y = 8.7, angle = 90, label = "Handwashing begun") +
+	theme(legend.position = c(0.1, 0.8))
+```
+
+## Desired Interpretation 
+The plot shows that both hospitals had a similar mortality rate (around 2%) prior to 1823. With the advent of the Pathological Anatomy course (which used cadavers), the rate in Vienna was greatly elevated as compared to Dublin (which did not have this class). Following the initiation of handwashing in 1848, the Vienna rates dropped back to being equivalent to that of the Dublin hospital. This supported Semmelweis' hypothesis that some infectious agent was being transmitted from the corpses to cause puerpural fever. Please note, even the lower 2% mortality would be considered obscenely high for a modern hospital. We have come a long way since the nineteenth century (at least with regard to medicine).
