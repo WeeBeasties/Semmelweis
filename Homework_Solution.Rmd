@@ -3,10 +3,10 @@ title: "Semmelweis Assignment"
 author: ""
 date: ""
 output:
-  html_document:
-    df_print: paged
   pdf_document: 
     latex_engine: xelatex 
+  html_document:
+    df_print: paged
 ---
 
 ## Desired analysis
@@ -37,17 +37,17 @@ plotData <- rbind(vienna,dublin)
 
 ```{r plot, echo=FALSE, fig.height=4.3, fig.width=7, fig.align='center'}
 ggplot(plotData, aes(x=Year, y=Rate, colour=Hospital)) +
-	scale_x_continuous(limits = c(1780, 1855), breaks = seq(1780, 1850, by = 10)) +
-	scale_y_continuous(limits = c(0, 20), breaks = seq(0, 20, by = 2)) +
+	scale_x_continuous(breaks = seq(1780, 1850, by = 10)) +
+	scale_y_continuous(breaks = seq(0, 20, by = 2)) +
 	geom_line(size=1.5) +
 	labs(x="Date", y="Percent Maternal Deaths per Live Birth") +
 	theme_classic() +
 	scale_color_manual(values=c("dodgerblue", "firebrick")) +
 	geom_vline(xintercept = 1823, linetype = "dotted") +
-	annotate("text", x = 1787, y = 17, label = "The Vienna hospital experienced an \n increase in mortality following the start \n of the Pathological Anatomy course", hjust = 0) +
+	annotate("text", x = 1821.5, y = 11, angle = 90, label = "Pathological Anatomy course started") +
 	geom_vline(xintercept = 1847, linetype = "dotted") +
-	annotate("text", x = 1825, y = 17, label = "Handwashing reduced \n rates to those of the \n Dublin hospital", hjust = 0) +
-	theme(legend.position = "none")
+	annotate("text", x = 1848.2, y = 8.7, angle = 90, label = "Handwashing begun") +
+	theme(legend.position = c(0.1, 0.8))
 ```
 
 ## Desired Interpretation 
