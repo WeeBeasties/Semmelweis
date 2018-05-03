@@ -4,10 +4,10 @@ author: ''
 date: ''
 output:
   word_document: default
-  pdf_document:
-    latex_engine: xelatex
   html_document:
     df_print: paged
+  pdf_document:
+    latex_engine: xelatex
 ---
 
 ## Desired analysis
@@ -41,7 +41,7 @@ ggplot(plotData, aes(x=Year, y=Rate, colour=Hospital)) +
 	scale_x_continuous(limits = c(1775, 1855), breaks = seq(1775, 1855, by = 10)) +
 	scale_y_continuous(limits = c(0, 20), breaks = seq(0, 20, by = 2)) +
 	geom_line(size=1.5) +
-	labs(x="Date", y="Percent Maternal Deaths per Live Birth") +
+	labs(x="Date", y="Deaths per 100 Live Births") +
 	theme_classic() +
 	scale_color_manual(values=c("dodgerblue", "firebrick")) +
 	geom_vline(xintercept = 1823, linetype = "dotted") +
