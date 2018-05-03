@@ -1,10 +1,11 @@
 ---
 title: "Semmelweis Assignment"
-author: ""
-date: ""
+author: ''
+date: ''
 output:
-  pdf_document: 
-    latex_engine: xelatex 
+  word_document: default
+  pdf_document:
+    latex_engine: xelatex
   html_document:
     df_print: paged
 ---
@@ -37,17 +38,19 @@ plotData <- rbind(vienna,dublin)
 
 ```{r plot, echo=FALSE, fig.height=4.3, fig.width=7, fig.align='center'}
 ggplot(plotData, aes(x=Year, y=Rate, colour=Hospital)) +
-	scale_x_continuous(breaks = seq(1780, 1850, by = 10)) +
-	scale_y_continuous(breaks = seq(0, 20, by = 2)) +
+	scale_x_continuous(limits = c(1775, 1855), breaks = seq(1775, 1855, by = 10)) +
+	scale_y_continuous(limits = c(0, 20), breaks = seq(0, 20, by = 2)) +
 	geom_line(size=1.5) +
 	labs(x="Date", y="Percent Maternal Deaths per Live Birth") +
 	theme_classic() +
 	scale_color_manual(values=c("dodgerblue", "firebrick")) +
 	geom_vline(xintercept = 1823, linetype = "dotted") +
-	annotate("text", x = 1821.5, y = 11, angle = 90, label = "Pathological Anatomy course started") +
+	annotate("text", x = 1821.5, y = 13.7, angle = 90, label = "Pathological Anatomy course started") +
 	geom_vline(xintercept = 1847, linetype = "dotted") +
-	annotate("text", x = 1848.2, y = 8.7, angle = 90, label = "Handwashing begun") +
-	theme(legend.position = c(0.1, 0.8))
+	annotate("text", x = 1848.2, y = 16.8, angle = 90, label = "Handwashing begun") +
+	annotate("text", x= 1779, y = 1.2, angle = 0, label = "Dublin", color = "dodgerblue", size = 5) +
+	annotate("text", x= 1779, y = 2.8, angle = 0, label = "Vienna", color = "firebrick", size = 5) +
+	theme(legend.position = "none")
 ```
 
 ## Desired Interpretation 
